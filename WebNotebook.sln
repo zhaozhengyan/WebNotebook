@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebNotebook", "WebNotebook\WebNotebook.csproj", "{97135EC7-38D4-42FC-8653-BF54AC3C50EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebNotebook.Angular", "WebNotebook.Angular\WebNotebook.Angular.csproj", "{168A0C9C-B844-41E8-A24B-E87098C5C29B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebNotebook.Angular", "WebNotebook.Angular\WebNotebook.Angular.csproj", "{168A0C9C-B844-41E8-A24B-E87098C5C29B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

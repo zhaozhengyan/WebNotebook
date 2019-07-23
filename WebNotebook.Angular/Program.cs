@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace WebNotebook.Angular
 {
@@ -14,11 +13,16 @@ namespace WebNotebook.Angular
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
-        }
+            var configuration = new ConfigurationBuilder()
+                .AddCommandLine(args)
+                .Build();
+            BuildWebHost(args, configuration).Run();
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        }
+        public static IWebHost BuildWebHost(string[] args, IConfiguration configuration) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseConfiguration(configuration)
+                .UseStartup<Startup>()
+                .Build();
     }
 }
