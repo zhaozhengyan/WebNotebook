@@ -3,6 +3,7 @@ WORKDIR /app
 EXPOSE 80
 # Setup NodeJs
 RUN apt-get update && \
+    apt-get npm && \
     apt-get install -y wget && \
     apt-get install -y gnupg2 && \
     wget -qO- https://deb.nodesource.com/setup_6.x | bash - && \
