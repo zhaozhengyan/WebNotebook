@@ -16,9 +16,8 @@ variables:
 
 steps:
 - script: |
-    docker build  -f WebNotebook/Dockerfile -t $(Build.BuildId) .
+    docker build  -f WebNotebook/Dockerfile -t $(imageName) .
     docker login -u $(dockerId) -p $(pwd) registry.cn-hangzhou.aliyuncs.com
-    docker tag $(Build.BuildId) registry.cn-hangzhou.aliyuncs.com/zohnz/webnotebook:$(Build.BuildId)
-    docker push registry.cn-hangzhou.aliyuncs.com/zohnz/webnotebook:$(Build.BuildId)
-  env:
-    pswd:   
+    docker tag $(imageName) registry.cn-hangzhou.aliyuncs.com/zohnz/webnotebook
+    docker push registry.cn-hangzhou.aliyuncs.com/zohnz/webnotebook
+   
