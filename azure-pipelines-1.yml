@@ -1,0 +1,24 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+
+variables:
+  dockerId: z921190200@163.com  # Replace with your Docker ID for Docker Hub or the admin user name for the Azure Container Registry
+  imageName: webnotebook  # Replace with the name of the image you want to publish
+
+steps:
+- script: |
+    docker build  -f WebNotebook/Dockerfile -t $(dockerId)/$(imageName) .
+    docker login -u $(dockerId) -p $(pswd)
+    sudo docker tag  registry.cn-hangzhou.aliyuncs.com/zohnz/webnotebook:v4
+    docker push $(dockerId)/$(imageName)
+  env:
+    pswd: nexter123.  
