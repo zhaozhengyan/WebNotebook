@@ -17,7 +17,7 @@ steps:
   displayName: 'dotnet build $(buildConfiguration)'
   inputs:
     command: 'build'
-    projects: 'Nexter.Host.csproj'
+    projects: 'WebNotebook.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: Docker@2
