@@ -17,7 +17,7 @@ variables:
 steps:
 - script: |
     docker build  -f WebNotebook/Dockerfile -t $(Build.BuildId) .
-    docker login -u $(dockerId) -p nexter123.
+    docker login -u $(dockerId) -p nexter123. registry.cn-hangzhou.aliyuncs.com
     docker tag $(Build.BuildId) registry.cn-hangzhou.aliyuncs.com/zohnz/webnotebook:$(Build.BuildId)
     docker push registry.cn-hangzhou.aliyuncs.com/zohnz/webnotebook:$(Build.BuildId)
   env:
