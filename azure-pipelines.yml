@@ -26,6 +26,7 @@ steps:
     containerRegistry: 'docker aliyun'
     command: 'build'
     Dockerfile: 'WebNotebook/Dockerfile'
+    arguments: '-t WebNotebook/Dockerfile'
 
 - task: Docker@2
   displayName: 'Login aliyun'
