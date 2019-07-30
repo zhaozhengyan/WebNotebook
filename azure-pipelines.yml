@@ -20,4 +20,4 @@ steps:
     docker login -u $(dockerId) -p $(pwd) registry.cn-hangzhou.aliyuncs.com
     docker tag $(imageName) registry.cn-hangzhou.aliyuncs.com/zohnz/webnotebook
     docker push registry.cn-hangzhou.aliyuncs.com/zohnz/webnotebook
-   
+  displayName: push to aliyun 
