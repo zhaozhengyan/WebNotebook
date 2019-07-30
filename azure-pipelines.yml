@@ -1,7 +1,7 @@
-# ASP.NET Core
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
 
 trigger:
 - master
@@ -9,41 +9,15 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+
 variables:
-  buildConfiguration: 'Release'
+  dockerId: z921190200@163.com  # Replace with your Docker ID for Docker Hub or the admin user name for the Azure Container Registry
+  imageName: webnotebook  # Replace with the name of the image you want to publish
 
 steps:
-- task: DotNetCoreCLI@2
-  displayName: 'Dotnet build $(buildConfiguration)'
-  inputs:
-    command: 'build'
-    projects: 'WebNotebook/WebNotebook.csproj'
-    arguments: '--configuration $(buildConfiguration)'
-
-- task: Docker@2
-  displayName: 'Build Image'
-  inputs:
-    containerRegistry: 'docker aliyun'
-    command: 'build'
-    Dockerfile: 'WebNotebook/Dockerfile'
-    arguments: '-f WebNotebook/Dockerfile'
-
-- task: Docker@2
-  displayName: 'Login aliyun'
-  inputs:
-    containerRegistry: 'docker aliyun'
-    command: 'login'
-
-- task: Docker@2
-  displayName: 'Push to aliyun'
-  inputs:
-    containerRegistry: 'docker aliyun'
-    repository: 'zohnz/webnotebook'
-    command: 'push'
-    tags: '$(Build.BuildId)'
-
-- task: SSH@0
-  displayName: 'Run aliyun_ssh'
-  inputs:
-    sshEndpoint: 'aliyun_ssh'
-    commands: 'cd /data/deploy/ && docker pull registry.cn-hangzhou.aliyuncs.com/zohnz/webnotebook:$(Build.BuildId) && docker run --name=$(Build.BuildId)  -p 5000:80 -d '
+- script: |
+    docker build  -f WebNotebook/Dockerfile -t $(imageName) .
+    docker login -u $(dockerId) -p $(pwd) registry.cn-hangzhou.aliyuncs.com
+    docker tag $(imageName) registry.cn-hangzhou.aliyuncs.com/zohnz/webnotebook
+    docker push registry.cn-hangzhou.aliyuncs.com/zohnz/webnotebook
+   
