@@ -11,13 +11,17 @@ pool:
 
 
 variables:
-  dockerId: z921190200@163.com  # Replace with your Docker ID for Docker Hub or the admin user name for the Azure Container Registry
-  imageName: webnotebook  # Replace with the name of the image you want to publish
+  dockerId: z921190200@163.com                  # 阿里云 login username
+  namespace: zohnz                              # 阿里云 命名空间
+  imageName: webnotebook                        # 阿里云 仓库名称
+  registry: registry.cn-hangzhou.aliyuncs.com   # 阿里云 公网地址
+  dockerfilepath:  WebNotebook/Dockerfile       # Github Dockerfile相对路径
+
 
 steps:
 - script: |
-    docker build  -f WebNotebook/Dockerfile -t $(imageName) .
-    docker login -u $(dockerId) -p $(pwd) registry.cn-hangzhou.aliyuncs.com
-    docker tag $(imageName) registry.cn-hangzhou.aliyuncs.com/zohnz/webnotebook
-    docker push registry.cn-hangzhou.aliyuncs.com/zohnz/webnotebook
-  displayName: push to aliyun 
+    docker build -f $(dockerfilepath) -t $(imageName) .
+    docker login -u $(dockerId) -p $(pwd) $(registry)
+    docker tag $(imageName) $(registry)/$(namespace)/$(imageName)
+    docker push $(registry)/$(namespace)/$(imageName)
+  displayName: push to aliyun
