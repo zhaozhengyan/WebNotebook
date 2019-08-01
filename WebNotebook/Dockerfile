@@ -6,8 +6,6 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 WORKDIR /src
 
-RUN ls -al
-
 COPY ["WebNotebook/WebNotebook.csproj", "WebNotebook/"]
 RUN dotnet restore "WebNotebook/WebNotebook.csproj"
 COPY . .
