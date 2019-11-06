@@ -25,7 +25,7 @@ namespace WebNotebook.Vue
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/build";
+                configuration.RootPath = "ClientApp/dist";
             });
         }
 
@@ -59,7 +59,8 @@ namespace WebNotebook.Vue
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:9527"); // your Vue app port
+                    // spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
         }
