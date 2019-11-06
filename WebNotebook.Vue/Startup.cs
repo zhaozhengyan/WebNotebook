@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.AspNetCore.SpaServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using VueCliMiddleware;
 
 namespace WebNotebook.Vue
 {
@@ -51,6 +52,17 @@ namespace WebNotebook.Vue
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+                if (env.IsDevelopment())
+                {
+                    // Note: only use vuecliproxy in development. 
+                    // Production should use "UseSpaStaticFiles()" and the webpack dist
+                    endpoints.MapToVueCliProxy(
+                        "{*path}",
+                        new SpaOptions { SourcePath = "ClientApp" },
+                        npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
+                        regex: "Compiled successfully"
+                        );
+                }
             });
 
             app.UseSpa(spa =>
@@ -59,8 +71,7 @@ namespace WebNotebook.Vue
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:9527"); // your Vue app port
-                    // spa.UseReactDevelopmentServer(npmScript: "start");
+                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:9527"); // 使用vue项目自己的服务器
                 }
             });
         }
