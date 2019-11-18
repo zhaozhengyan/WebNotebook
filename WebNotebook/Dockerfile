@@ -4,7 +4,7 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 RUN ls -la
-COPY . ./ /src
+COPY ./ /src
 WORKDIR "/src/WebNotebook"
 RUN ls -la
 FROM build AS publish
