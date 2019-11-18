@@ -3,7 +3,8 @@ WORKDIR /app
 EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
-COPY ./ /src
+RUN ls -la
+COPY . ./ /src
 WORKDIR "/src/WebNotebook"
 RUN ls -la
 FROM build AS publish
